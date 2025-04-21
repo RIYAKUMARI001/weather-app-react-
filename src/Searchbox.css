@@ -1,0 +1,22 @@
+.searchbox {
+    text-align: center;
+    margin-bottom :15px; 
+    padding: 10px;
+}
+
+.searchbox form {
+    display: inline-block;
+  }
+  
+  .searchbox p {
+    margin-top: 10px;
+    color: red;
+  }
+  /* .searchbox button {
+    background-color: #1976d2;
+    padding: 6px 20px;
+    font-weight: bold;
+    color: white;
+    border-radius: 6px;
+    margin-top: 10px;
+  } */
