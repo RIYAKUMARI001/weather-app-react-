@@ -1,37 +1,55 @@
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { MapPin, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './infoBox.css';
 
 export default function InfoBox({ info }) {
-  const INIT_URL =
-    'https://images.unsplash.com/photo-1714417830767-79dc641c6e65?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnJva2VuJTIwY2xvdWRzfGVufDB8fDB8fHww';
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
 
   return (
-    <div className="infoBox">
-      <div className="card-container">
-        <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            sx={{ height: 140 }}
-            image={INIT_URL}
-            title="Weather Image"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {info.city}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" component={'div'}>
-              <div className='weather-details'>
-              <div>Temp: {info.temp}&deg;C</div>
-              <div>Feels Like: {info.feelsLike}</div>
-              <div>Humidity: {info.humidity}%</div>
-              <div>Weather: {info.weather}</div>
-              </div>
-            </Typography>
-          </CardContent>
-        </Card>
+    <motion.div 
+      className="main-display"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="glass-card hero-card">
+        <div className="location-info">
+          <div className="city-name">
+            <MapPin size={24} className="accent-icon" />
+            <h1>{info.city}, {info.country}</h1>
+          </div>
+          <div className="date-info">
+            <Calendar size={18} />
+            <span>{currentDate}</span>
+          </div>
+        </div>
+
+        <div className="weather-main">
+          <div className="temp-section">
+            <span className="current-temp">{info.temp}&deg;</span>
+            <div className="hi-low">
+              <span>H: {info.tempMax}&deg;</span>
+              <span>L: {info.tempMin}&deg;</span>
+            </div>
+          </div>
+          <div className="condition-section">
+            <img 
+              src={`https://openweathermap.org/img/wn/${info.icon}@4x.png`} 
+              alt={info.description}
+              className="main-weather-icon"
+            />
+            <span className="weather-condition">{info.description}</span>
+          </div>
+        </div>
+        
+        <div className="feels-like">
+          Feels like <strong>{info.feelsLike}&deg;C</strong>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
